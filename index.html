@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive CRUD Table</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">CRUD App with Search and Pagination</h1>
+      <section>
+        <header>
+          <h2>CRUD App</h2>
+          <input type="search" placeholder="Search User" />
+          <div class="buttons">
+            <button class="delete-btn">
+              <i class="fa-regular fa-trash-can"></i> Delete All
+            </button>
+            <button id="create-new-user" class="add-btn">
+              <i class="fa-solid fa-plus"></i> Add New User
+            </button>
+          </div>
+        </header>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Sr</th>
+                <th>Profile</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Date of Birth</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Sr">1</td>
+                <td data-label="Profile">
+                  <img
+                    src="https://media.istockphoto.com/id/1313644269/vector/gold-and-silver-circle-star-logo-template.jpg?s=612x612&w=0&k=20&c=hDqCI9qTkNqNcKa6XS7aBim7xKz8cZbnm80Z_xiU2DI="
+                    alt="Profile Photo"
+                    class="profile-photo"
+                  />
+                </td>
+                <td data-label="Name">John Doe</td>
+                <td data-label="Email">john.doe@example.com</td>
+                <td data-label="Mobile">+123456789</td>
+                <td data-label="Date of Birth">01/01/1990</td>
+                <td data-label="Action">
+                  <button class="add-btn">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button class="delete-btn">
+                    <i class="fa-solid fa-trash-can-arrow-up"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="Sr">2</td>
+                <td data-label="Profile">
+                  <img
+                    src="https://media.istockphoto.com/id/1313644269/vector/gold-and-silver-circle-star-logo-template.jpg?s=612x612&w=0&k=20&c=hDqCI9qTkNqNcKa6XS7aBim7xKz8cZbnm80Z_xiU2DI="
+                    alt="Profile Photo"
+                    class="profile-photo"
+                  />
+                </td>
+                <td data-label="Name">Jane Smith</td>
+                <td data-label="Email">jane.smith@example.com</td>
+                <td data-label="Mobile">+987654321</td>
+                <td data-label="Date of Birth">02/02/1992</td>
+                <td data-label="Action">
+                  <button class="add-btn">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button class="delete-btn">
+                    <i class="fa-solid fa-trash-can-arrow-up"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="model">
+        <div class="model-box animate__animated animate__zoomIn">
+          <h2>Create User Here..</h2>
+          <form class="model-form">
+            <input
+              type="text"
+              required
+              name="name"
+              placeholder="Enter Your Name"
+            />
+            <input
+              type="email"
+              required
+              name="email"
+              placeholder="Enter Your Email"
+            />
+            <input
+              type="number"
+              required
+              name="number"
+              placeholder="Enter Your Number"
+            />
+            <div class="two-input">
+              <input required type="date" name="dob" />
+              <input type="file" />
+            </div>
+            <input
+              type="password"
+              name="password"
+              required
+              placeholder="Enter Your Password"
+            />
+            <div class="form-buttons">
+              <button type="button" disabled class="add-btn">
+                Update User
+              </button>
+              <button type="submit" class="delete-btn">create User</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+  </body>
+</html>
