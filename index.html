@@ -47,52 +47,7 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td data-label="Sr">1</td>
-                <td data-label="Profile">
-                  <img
-                    src="https://media.istockphoto.com/id/1313644269/vector/gold-and-silver-circle-star-logo-template.jpg?s=612x612&w=0&k=20&c=hDqCI9qTkNqNcKa6XS7aBim7xKz8cZbnm80Z_xiU2DI="
-                    alt="Profile Photo"
-                    class="profile-photo"
-                  />
-                </td>
-                <td data-label="Name">John Doe</td>
-                <td data-label="Email">john.doe@example.com</td>
-                <td data-label="Mobile">+123456789</td>
-                <td data-label="Date of Birth">01/01/1990</td>
-                <td data-label="Action">
-                  <button class="add-btn">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  </button>
-                  <button class="delete-btn">
-                    <i class="fa-solid fa-trash-can-arrow-up"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Sr">2</td>
-                <td data-label="Profile">
-                  <img
-                    src="https://media.istockphoto.com/id/1313644269/vector/gold-and-silver-circle-star-logo-template.jpg?s=612x612&w=0&k=20&c=hDqCI9qTkNqNcKa6XS7aBim7xKz8cZbnm80Z_xiU2DI="
-                    alt="Profile Photo"
-                    class="profile-photo"
-                  />
-                </td>
-                <td data-label="Name">Jane Smith</td>
-                <td data-label="Email">jane.smith@example.com</td>
-                <td data-label="Mobile">+987654321</td>
-                <td data-label="Date of Birth">02/02/1992</td>
-                <td data-label="Action">
-                  <button class="add-btn">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  </button>
-                  <button class="delete-btn">
-                    <i class="fa-solid fa-trash-can-arrow-up"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
+            <tbody class="table-body"></tbody>
           </table>
         </div>
       </section>
@@ -101,26 +56,11 @@
         <div class="model-box animate__animated animate__zoomIn">
           <h2>Create User Here..</h2>
           <form class="model-form">
-            <input
-              type="text"
-              required
-              name="name"
-              placeholder="Enter Your Name"
-            />
-            <input
-              type="email"
-              required
-              name="email"
-              placeholder="Enter Your Email"
-            />
-            <input
-              type="number"
-              required
-              name="number"
-              placeholder="Enter Your Number"
-            />
+            <input type="text" required placeholder="Enter Your Name" />
+            <input type="email" required placeholder="Enter Your Email" />
+            <input type="number" required placeholder="Enter Your Number" />
             <div class="two-input">
-              <input required type="date" name="dob" />
+              <input required type="date" />
               <input type="file" />
             </div>
             <input

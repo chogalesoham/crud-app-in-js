@@ -251,3 +251,15 @@ button:disabled {
   opacity: 0.5;
   cursor: no-drop;
 }
+
+.user-profile {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+  box-shadow: 1px 1px 4px black;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
