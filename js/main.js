@@ -84,15 +84,56 @@ const displayUserData = () => {
         <td data-label="Mobile">+${user.number}</td>
         <td data-label="Date of Birth">${user.dob}</td>
         <td data-label="Action">
-          <button class="add-btn">
+          <button index=${idx} id='edit-btn' class="add-btn">
             <i class="fa-solid fa-pen-to-square"></i>
           </button>
-          <button class="delete-btn">
+          <button index=${idx} class="del-btn delete-btn">
             <i class="fa-solid fa-trash-can-arrow-up"></i>
           </button>
         </td>
       </tr>`;
   });
+
+  deleteUser();
+};
+
+//Delete the Singal user
+
+const deleteUser = () => {
+  const allDelButtons = tableBody.querySelectorAll(".del-btn");
+  for (let btn of allDelButtons) {
+    btn.addEventListener("click", async () => {
+      let isConform = await conformPopup();
+      if (isConform) {
+        let index = btn.getAttribute("index");
+        modelFormData.splice(index, 1);
+        localStorage.setItem("FormData", JSON.stringify(modelFormData));
+        displayUserData();
+      }
+    });
+  }
 };
 
 displayUserData();
+
+const conformPopup = () => {
+  return new Promise((resolve, reject) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        resolve(true);
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        resolve(false);
+        swal("Your imaginary file is safe!");
+      }
+    });
+  });
+};
