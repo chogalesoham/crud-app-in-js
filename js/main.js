@@ -34,11 +34,13 @@ if (localStorage.getItem("FormData") != null) {
 modelForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  // Check if email already exists in modelFormData
   let checkEmail = modelFormData.find(
     (data) => data.email === allInputes[2].value
   );
 
-  if (checkEmail === undefined) {
+  if (!checkEmail) {
+    // Add new user data to modelFormData array
     modelFormData.push({
       name: allInputes[1].value,
       email: allInputes[2].value,
@@ -51,12 +53,28 @@ modelForm.addEventListener("submit", (e) => {
       password: allInputes[6].value,
     });
 
-    localStorage.setItem("FormData", JSON.stringify(modelFormData));
-    swal("Good job!", "User Created Successfully!", "success");
-    modelForm.reset();
-    model.style.display = "none";
-    displayUserData();
+    // Try to store updated data in localStorage
+    try {
+      localStorage.setItem("FormData", JSON.stringify(modelFormData));
+      swal("Good job!", "User Created Successfully!", "success");
+      modelForm.reset();
+      model.style.display = "none";
+      displayUserData();
+    } catch (error) {
+      if (error.name === "QuotaExceededError") {
+        swal(
+          "Error",
+          "Storage limit exceeded. Unable to save user data.",
+          "error"
+        );
+        console.error("QuotaExceededError: ", error);
+      } else {
+        swal("Error", "An unexpected error occurred.", "error");
+        console.error("Unexpected error: ", error);
+      }
+    }
   } else {
+    // Email already exists
     swal("Error", "Email already exists!", "error");
   }
 });
