@@ -24,9 +24,9 @@
       <section>
         <header>
           <h2>CRUD App</h2>
-          <input type="search" placeholder="Search User" />
+          <input type="search" id="search-input" placeholder="Search User" />
           <div class="buttons">
-            <button class="delete-btn">
+            <button class="delete-btn delete-all-button">
               <i class="fa-regular fa-trash-can"></i> Delete All
             </button>
             <button id="create-new-user" class="add-btn">
@@ -49,6 +49,30 @@
             </thead>
             <tbody class="table-body"></tbody>
           </table>
+        </div>
+
+        <div class="page">
+          <div class="pagination">
+            <!-- First Page Button -->
+            <button
+              class="pagination__btn pagination__btn-left"
+              title="Go to the first page."
+            >
+              <i class="fas fa-angles-left"></i>
+            </button>
+
+            <!-- Page Buttons -->
+            <div class="pagination__buttons">
+              <!-- <button class="pagination__btn pagination__btn_active">2</button> -->
+            </div>
+            <!-- Last Page Button -->
+            <button
+              class="pagination__btn pagination__btn-right"
+              title="Go to the last page."
+            >
+              <i class="fas fa-angles-right"></i>
+            </button>
+          </div>
         </div>
       </section>
 

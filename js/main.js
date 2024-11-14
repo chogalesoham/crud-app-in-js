@@ -5,6 +5,9 @@ const modelForm = document.querySelector(".model-form");
 const allbuttons = modelForm.querySelectorAll("button");
 const allInputes = document.querySelectorAll("input");
 const tableBody = document.querySelector(".table-body");
+const searchInput = document.querySelector("#search-input");
+const deleteAllButton = document.querySelector(".delete-all-button");
+const paginationButtons = document.querySelector(".pagination__buttons");
 
 // Toggle Model
 createNewUser.addEventListener("click", () => {
@@ -48,7 +51,7 @@ modelForm.addEventListener("submit", (e) => {
       dob: allInputes[4].value,
       userProfile:
         profileUrl === ""
-          ? "http://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Free-Image.png"
+          ? "https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
           : profileUrl,
       password: allInputes[6].value,
     });
@@ -60,6 +63,7 @@ modelForm.addEventListener("submit", (e) => {
       modelForm.reset();
       model.style.display = "none";
       displayUserData();
+      console.log(modelFormData);
     } catch (error) {
       if (error.name === "QuotaExceededError") {
         swal(
@@ -180,6 +184,16 @@ const setupActions = () => {
 
 displayUserData();
 
+deleteAllButton.addEventListener("click", async () => {
+  const conform = await confirmPopup();
+
+  if (conform) {
+    modelFormData = [];
+    localStorage.removeItem("FormData");
+    displayUserData();
+  }
+});
+
 // Confirmation Popup
 const confirmPopup = () => {
   return new Promise((resolve) => {
@@ -202,3 +216,44 @@ const confirmPopup = () => {
     });
   });
 };
+
+//Search logic
+searchInput.oninput = () => {
+  searchUser();
+};
+
+const searchUser = () => {
+  let value = searchInput.value.toLowerCase();
+  let tr = tableBody.querySelectorAll("TR");
+  let i;
+  for (i = 0; i < tr.length; i++) {
+    let allTd = tr[i].querySelectorAll("TD");
+    let name = allTd[2].innerHTML;
+    let email = allTd[3].innerHTML;
+    let phone = allTd[4].innerHTML;
+    if (name.toLocaleLowerCase().indexOf(value) != -1) {
+      tr[i].style.display = "";
+    } else if (email.toLocaleLowerCase().indexOf(value) != -1) {
+      tr[i].style.display = "";
+    } else if (phone.toLocaleLowerCase().indexOf(value) != -1) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+};
+
+//pagination logic
+
+let length = modelFormData.length / 5;
+if (length.toString().indexOf(".") != -1) {
+  length = length + 1;
+}
+
+for (let i = 1; i < length; i++) {
+  console.log(i);
+
+  paginationButtons.innerHTML += `
+    <button class="pagination__btn">${i}</button>
+  `;
+}
