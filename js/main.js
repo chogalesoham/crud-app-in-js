@@ -8,6 +8,8 @@ const tableBody = document.querySelector(".table-body");
 const searchInput = document.querySelector("#search-input");
 const deleteAllButton = document.querySelector(".delete-all-button");
 const paginationButtons = document.querySelector(".pagination__buttons");
+const btnLeft = document.querySelector(".pagination__btn-left");
+const btnRight = document.querySelector(".pagination__btn-right");
 
 // Toggle Model
 createNewUser.addEventListener("click", () => {
@@ -63,7 +65,7 @@ modelForm.addEventListener("submit", (e) => {
       modelForm.reset();
       model.style.display = "none";
       displayUserData(0, 5);
-      console.log(modelFormData);
+      pagination();
     } catch (error) {
       if (error.name === "QuotaExceededError") {
         swal(
@@ -138,6 +140,7 @@ const setupActions = () => {
         modelFormData.splice(index, 1);
         localStorage.setItem("FormData", JSON.stringify(modelFormData));
         displayUserData(0, 5);
+        pagination();
       }
     });
   });
@@ -244,25 +247,27 @@ const searchUser = () => {
 };
 
 //pagination logic
-
-let length = modelFormData.length / 5;
-if (length.toString().indexOf(".") != -1) {
-  length = length + 1;
-}
-let skipData = 0;
-let datalode = 5;
-for (let i = 1; i < length; i++) {
-  paginationButtons.innerHTML += `
-    <button skip-data='${skipData}' data-lode='${datalode}'  class="pagination__btn">${i}</button>
-  `;
-  skipData = skipData + 5;
-  datalode = datalode + 5;
-}
+const pagination = () => {
+  let length = modelFormData.length / 5;
+  if (length.toString().indexOf(".") != -1) {
+    length = length + 1;
+  }
+  let skipData = 0;
+  let datalode = 5;
+  for (let i = 1; i < length; i++) {
+    paginationButtons.innerHTML += `
+      <button skip-data='${skipData}' data-lode='${datalode}'  class="pagination__btn">${i}</button>
+    `;
+    skipData = skipData + 5;
+    datalode = datalode + 5;
+  }
+};
+pagination();
 
 const paginationBtn = document.querySelectorAll(".pagination__btn");
-
-for (let btn of paginationBtn) {
+paginationBtn.forEach((btn, index) => {
   btn.addEventListener("click", () => {
+    controllNextAndPrev(paginationBtn, index);
     for (let el of paginationBtn) {
       el.classList.remove("pagination__btn_active");
     }
@@ -272,4 +277,43 @@ for (let btn of paginationBtn) {
     let lode = btn.getAttribute("data-lode");
     displayUserData(skip, lode);
   });
-}
+});
+
+// pagination left right button logic
+
+btnRight.onclick = () => {
+  let curIndex = 0;
+  paginationBtn.forEach((btn, index) => {
+    if (btn.classList.contains("pagination__btn_active")) {
+      curIndex = index;
+    }
+  });
+  paginationBtn[curIndex + 1].click();
+  controllNextAndPrev(paginationBtn, curIndex + 1);
+};
+
+btnLeft.onclick = () => {
+  let curIndex = 0;
+  paginationBtn.forEach((btn, index) => {
+    if (btn.classList.contains("pagination__btn_active")) {
+      curIndex = index;
+    }
+  });
+  paginationBtn[curIndex - 1].click();
+  controllNextAndPrev(paginationBtn, curIndex - 1);
+};
+
+const controllNextAndPrev = (paginationBtn, curIndex) => {
+  let length = paginationBtn.length - 1;
+
+  if (curIndex === length) {
+    btnRight.disabled = true;
+    btnLeft.disabled = false;
+  } else if (curIndex > 0) {
+    btnLeft.disabled = false;
+    btnRight.disabled = false;
+  } else {
+    btnLeft.disabled = true;
+    btnRight.disabled = false;
+  }
+};

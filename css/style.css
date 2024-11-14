@@ -317,6 +317,18 @@ button:disabled {
   color: #fff;
   font-size: 16px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border: none;
+  outline: none;
+  box-shadow: 1px 1px 4px grey;
 }
 
 .pagination__btn-right:hover {
