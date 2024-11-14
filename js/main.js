@@ -62,7 +62,7 @@ modelForm.addEventListener("submit", (e) => {
       swal("Good job!", "User Created Successfully!", "success");
       modelForm.reset();
       model.style.display = "none";
-      displayUserData();
+      displayUserData(0, 5);
       console.log(modelFormData);
     } catch (error) {
       if (error.name === "QuotaExceededError") {
@@ -97,9 +97,10 @@ allInputes[5].addEventListener("change", () => {
 });
 
 // Display User Data
-const displayUserData = () => {
+const displayUserData = (from, to) => {
+  const filterData = modelFormData.slice(from, to);
   tableBody.innerHTML = "";
-  modelFormData.forEach((user, idx) => {
+  filterData.forEach((user, idx) => {
     tableBody.innerHTML += `
      <tr>
         <td data-label="Sr">${idx + 1}</td>
@@ -136,7 +137,7 @@ const setupActions = () => {
         let index = btn.getAttribute("index");
         modelFormData.splice(index, 1);
         localStorage.setItem("FormData", JSON.stringify(modelFormData));
-        displayUserData();
+        displayUserData(0, 5);
       }
     });
   });
@@ -176,23 +177,22 @@ const setupActions = () => {
         allbuttons[1].disabled = false;
         profileUrl = ""; // Reset profileUrl
         modelForm.reset();
-        displayUserData();
+        displayUserData(0, 5);
       };
     });
   });
 };
 
-displayUserData();
-
 deleteAllButton.addEventListener("click", async () => {
   const conform = await confirmPopup();
-
   if (conform) {
     modelFormData = [];
     localStorage.removeItem("FormData");
-    displayUserData();
+    displayUserData(0, 5);
   }
 });
+
+displayUserData(0, 5);
 
 // Confirmation Popup
 const confirmPopup = () => {
@@ -249,11 +249,27 @@ let length = modelFormData.length / 5;
 if (length.toString().indexOf(".") != -1) {
   length = length + 1;
 }
-
+let skipData = 0;
+let datalode = 5;
 for (let i = 1; i < length; i++) {
-  console.log(i);
-
   paginationButtons.innerHTML += `
-    <button class="pagination__btn">${i}</button>
+    <button skip-data='${skipData}' data-lode='${datalode}'  class="pagination__btn">${i}</button>
   `;
+  skipData = skipData + 5;
+  datalode = datalode + 5;
+}
+
+const paginationBtn = document.querySelectorAll(".pagination__btn");
+
+for (let btn of paginationBtn) {
+  btn.addEventListener("click", () => {
+    for (let el of paginationBtn) {
+      el.classList.remove("pagination__btn_active");
+    }
+
+    btn.classList.add("pagination__btn_active");
+    let skip = btn.getAttribute("skip-data");
+    let lode = btn.getAttribute("data-lode");
+    displayUserData(skip, lode);
+  });
 }
